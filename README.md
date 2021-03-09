@@ -1,3 +1,3 @@
-# colinwei91.github.io
-personal blog
+# BLOG
+I want to make the world a better place.
 
