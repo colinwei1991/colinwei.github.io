@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Java 线程池浅析
+author: Colin Wei
 categories: Java
 tags: [java, 线程池]
 ---
