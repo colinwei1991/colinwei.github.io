@@ -86,7 +86,7 @@ WebSocket协议主要包含两部分，建立连接和数据传输。
 WebSocket协议复用了http协议的握手通道来建立连接。
 
 首先，客户端发起http升级请求，请求示例如下：
-```http request
+```
 GET /chat HTTP/1.1
 Host: server.example.com
 Origin: http://example.com
