@@ -96,11 +96,11 @@ Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
 Sec-WebSocket-Protocol: chat, superchat
 Sec-WebSocket-Version: 13
 ```
-`Connection: Upgrade`：表示要升级协议<br/>
-`Upgrade: websocket`：表示要升级成websocket协议<br/>
-`Sec-WebSocket-Protocol`：表示客户端可以使用的websocket协议。服务端需要从中选择一个协议，并在握手时返回给客户端。<br/>
-`Sec-WebSocket-Version`：表示客户端使用的websocket的版本。如果服务端不支持该版本，需要返回一个Sec-WebSocket-Version header，里面包含服务端支持的版本号。根据RFC6455，该值不能小于13，低版本的已经被废废弃了。<br/>
-`Sec-WebSocket-Key`：该字段值是由客户端生成的base64编码的字符串，客户端通过对字段和服务端响应头的Sec-WebSocket-Accept字段的值进行校验，保护连接不会被窃取。
+- `Connection: Upgrade`：表示要升级协议。
+- `Upgrade: websocket`：表示要升级成websocket协议。
+- `Sec-WebSocket-Protocol`：表示客户端可以使用的websocket协议。服务端需要从中选择一个协议，并在握手时返回给客户端。
+- `Sec-WebSocket-Version`：表示客户端使用的websocket的版本。如果服务端不支持该版本，需要返回一个Sec-WebSocket-Version header，里面包含服务端支持的版本号。根据RFC6455，该值不能小于13，低版本的已经被废废弃了。
+- `Sec-WebSocket-Key`：该字段值是由客户端生成的base64编码的字符串，客户端通过对字段和服务端响应头的Sec-WebSocket-Accept字段的值进行校验，保护连接不会被窃取。
 
 客户端响应示例如下：
 ```
@@ -111,10 +111,10 @@ Sec-WebSocket-Protocol: chat
 Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 ```
 服务端的响应头比客户端的简单很多。
-`101 Switching Protocols`: 101状态码表示websocket协议握手完成。除101之外的状态码都表示websocket协议握手未完成，此时协议仍为http协议。<br/>
-`Connection`和`Upgrade`：表示将协议升级为了websocket。<br/>
-`Sec-WebSocket-Protocol`：表示服务端选择的websocket协议。<br/>
-`Sec-WebSocket-Accept`：由Sec-WebSocket-Key计算得到，用于向客户端表明身份：我接收到了你的请求。
+- `101 Switching Protocols`: 101状态码表示websocket协议握手完成。除101之外的状态码都表示websocket协议握手未完成，此时协议仍为http协议。
+- `Connection`和`Upgrade`：表示将协议升级为了websocket。
+- `Sec-WebSocket-Protocol`：表示服务端选择的websocket协议。
+- `Sec-WebSocket-Accept`：由Sec-WebSocket-Key计算得到，用于向客户端表明身份：我接收到了你的请求。
 
 服务端生成Sec-WebSocket-Accept的算法如下：
 1. 拼接Sec-WebSocket-Key字段的值和"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"（Globally Unique Identifier(GUID，[RFC4122](https://www.rfc-editor.org/rfc/rfc4122))），得到字符串A;
