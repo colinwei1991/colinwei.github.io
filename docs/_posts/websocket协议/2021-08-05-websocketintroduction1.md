@@ -7,8 +7,6 @@ categories: WebSocket
 tags: [WebSocket, 网络协议]
 ---
 
-[TOC]
-
 前段时间，因公司项目需要实现单聊场景下的IM工具，笔者对目前业界比较通用的WebSocket协议进行了调研和学习。
 WebSocket协议的出现，使浏览器和服务器具备了实时双向通信的能力。本文主要对WebSocket协议的使用场景、原理进行简要介绍。
 
