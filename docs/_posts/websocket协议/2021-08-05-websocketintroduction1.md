@@ -7,6 +7,8 @@ categories: WebSocket
 tags: [WebSocket, 网络协议]
 ---
 
+[TOC]
+
 前段时间，因公司项目需要实现单聊场景下的IM工具，笔者对目前业界比较通用的WebSocket协议进行了调研和学习。
 WebSocket协议的出现，使浏览器和服务器具备了实时双向通信的能力。本文主要对WebSocket协议的使用场景、原理进行简要介绍。
 
@@ -73,16 +75,16 @@ HTTP流机制的思路是，在一个连接建立后，一直保持该连接为�
 2. 消息延迟的问题。虽然理论上流机制可以只建立一次连接，但实际上，由于客户端或服务端的连接数或内存等的限制，往往对于建立的连接会进行断开并重新连接，来降低资源的占用。这样的话，该机制和长轮询基本就是一样了。
 3. 额外的机制和协议。因为需要一直维护连接的状态，并实现由服务器主动推送给客户端，因此需要在原有的HTTP协议上增加额外的机制和协议来实现该功能。
 
-## 3 WebSocket的原理
+## 3 WebSocket的基本原理
 
 无论是轮询还是流机制，都是使用的http协议，每次请求都包含了完整的http请求头，并且，需要多次请求来获取完整的响应，开销大。
 
 问题来了，难道不能使用单个TCP连接解决双向通信的问题吗？答案就是WebSocket协议。
 
 下面，我们看下WebSocket协议的基本原理。
+
 WebSocket协议主要包含两部分，建立连接和数据传输。
 
-### 3.1 建立连接
 WebSocket协议复用了http协议的握手通道来建立连接。
 
 首先，客户端发起http升级请求，请求示例如下：
@@ -99,7 +101,7 @@ Sec-WebSocket-Version: 13
 - `Connection: Upgrade`：表示要升级协议。
 - `Upgrade: websocket`：表示要升级成websocket协议。
 - `Sec-WebSocket-Protocol`：表示客户端可以使用的websocket协议。服务端需要从中选择一个协议，并在握手时返回给客户端。
-- `Sec-WebSocket-Version`：表示客户端使用的websocket的版本。如果服务端不支持该版本，需要返回一个Sec-WebSocket-Version header，里面包含服务端支持的版本号。根据RFC6455，该值不能小于13，低版本的已经被废废弃了。
+- `Sec-WebSocket-Version`：表示客户端使用的websocket的版本。如果服务端不支持该版本，需要返回一个Sec-WebSocket-Version header，里面包含服务端支持的版本号。根据RFC6455，该值不能小于13，低版本的已经被废弃了。
 - `Sec-WebSocket-Key`：该字段值是由客户端生成的base64编码的字符串，客户端通过对字段和服务端响应头的Sec-WebSocket-Accept字段的值进行校验，保护连接不会被窃取。
 
 客户端响应示例如下：
@@ -121,8 +123,13 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 2. 对字符串A进行SHA1 hash，得到字符串B；
 3. 对字符串B进行base64编码得到Sec-WebSocket-Accept的值。
 
+关于底层涉及到的TCP连接连接的三次握手机制，我们这里不再赘述。
 
+通过上述机制，客户端和服务端之间就建立了websocket连接，连接建立后就可以进行双向的数据传输了。
 
+总结一下，本文主要介绍了websocket提出的背景及主要功能，在此基础上简要介绍了websocket的握手机制，了解了websocket连接是如何建立的。
+
+下一篇文章我们将对websocket的原理进行更深入一些的介绍。
 
 ## 参考文献
 
@@ -132,4 +139,3 @@ Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 - http rfc: https://datatracker.ietf.org/doc/html/rfc2616#page-144
 - http双向通信实践 rfc：https://datatracker.ietf.org/doc/html/rfc6202
 
-未完待续。。。
